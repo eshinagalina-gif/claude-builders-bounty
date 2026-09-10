@@ -1,44 +1,75 @@
-# Claude Code destructive Bash blocker
+# Claude Builders Bounty 🤖
 
-A Claude Code PreToolUse hook that blocks selected destructive Bash commands before execution.
+> A community bounty board for Claude Code builders.
 
-## Bounty
+Building with Claude Code? Have tasks to delegate?
+Want to get paid for contributing to AI projects?
+You're in the right place.
 
-$100
+---
 
-## What it blocks
+## How it works
 
-- rm -rf
-- rm -fr
-- rm -r -f
-- git push --force
-- git push -f
-- DROP TABLE
-- TRUNCATE TABLE
-- DELETE FROM without WHERE
+**To post a bounty**
+1. Open a GitHub issue with a clear description and acceptance criteria
+2. Comment `/opire create $XXX` in the issue to set the reward
+3. Share the link — contributors will find it
 
-git push --force-with-lease is allowed.
+**To claim a bounty**
+1. Browse the open issues below
+2. Comment `/opire try` in the issue you want to work on
+3. Submit a PR — payment is automatic on merge ✅
 
-Normal commands such as rm file.txt, git status, npm test, and git push origin main are allowed.
+---
 
-## Logging
+## Active Bounties
 
-Blocked commands are logged to ~/.claude/hooks/blocked.log.
+| # | Task | Amount | Status |
+|---|------|--------|--------|
+| [#1](../../issues/1) | SKILL: Generate a CHANGELOG from git history | $50 | 🟢 Open |
+| [#2](../../issues/2) | TEMPLATE: CLAUDE.md for a Next.js + SQLite project | $75 | 🟢 Open |
+| [#3](../../issues/3) | HOOK: Block destructive bash commands in Claude Code | $100 | 🟢 Open |
+| [#4](../../issues/4) | AGENT: PR reviewer with structured Markdown output | $150 | 🟢 Open |
+| [#5](../../issues/5) | WORKFLOW: n8n + Claude API — automated weekly dev summary | $200 | 🟢 Open |
 
-Each log entry contains timestamp, command, project path, and reason.
+---
 
-## Installation
+## Rules
 
-Run ./install.sh from this directory, then add the configuration from settings.example.json to your Claude Code settings.
+- Tasks must be related to Claude Code or AI tooling
+- Every issue must have clear acceptance criteria before a bounty is activated
+- Payment is handled by [Opire](https://opire.dev) (Stripe)
+- Quality over speed — a solid PR beats a fast one
 
-## Testing
+---
 
-Run: python3 test_hook.py
+## Community
 
-Expected: PASS: 15 tests
+- 🐦 X: [@ClaudeBounty](https://x.com/ClaudeBounty)
+- 📧 Contact: claudebounty@gmail.com
 
-## Safety
+---
 
-The hook analyzes incoming Bash tool calls and returns a deny decision for matching destructive patterns. It does not execute the incoming command.
+*Started by the Claude builder community · March 2026 · MIT License*
 
-This project does not claim the bounty, create a PR, modify GitHub, or submit anything automatically.
+## Claude Code destructive Bash blocker
+
+This repository includes a Claude Code `PreToolUse` hook that blocks selected destructive Bash commands before execution.
+
+### Installation
+
+Run:
+
+```bash
+./install.sh
+```
+
+The installer copies the hook to `~/.claude/hooks/` and creates or updates the Claude Code `settings.json`.
+
+### Testing
+
+```bash
+python3 test_hook.py
+```
+
+Expected result: `PASS: 15 tests`
