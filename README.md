@@ -1,53 +1,44 @@
-# Claude Builders Bounty 🤖
+# Claude Code destructive Bash blocker
 
-> A community bounty board for Claude Code builders.
+A Claude Code PreToolUse hook that blocks selected destructive Bash commands before execution.
 
-Building with Claude Code? Have tasks to delegate?
-Want to get paid for contributing to AI projects?
-You're in the right place.
+## Bounty
 
----
+$100
 
-## How it works
+## What it blocks
 
-**To post a bounty**
-1. Open a GitHub issue with a clear description and acceptance criteria
-2. Comment `/opire create $XXX` in the issue to set the reward
-3. Share the link — contributors will find it
+- rm -rf
+- rm -fr
+- rm -r -f
+- git push --force
+- git push -f
+- DROP TABLE
+- TRUNCATE TABLE
+- DELETE FROM without WHERE
 
-**To claim a bounty**
-1. Browse the open issues below
-2. Comment `/opire try` in the issue you want to work on
-3. Submit a PR — payment is automatic on merge ✅
+git push --force-with-lease is allowed.
 
----
+Normal commands such as rm file.txt, git status, npm test, and git push origin main are allowed.
 
-## Active Bounties
+## Logging
 
-| # | Task | Amount | Status |
-|---|------|--------|--------|
-| [#1](../../issues/1) | SKILL: Generate a CHANGELOG from git history | $50 | 🟢 Open |
-| [#2](../../issues/2) | TEMPLATE: CLAUDE.md for a Next.js + SQLite project | $75 | 🟢 Open |
-| [#3](../../issues/3) | HOOK: Block destructive bash commands in Claude Code | $100 | 🟢 Open |
-| [#4](../../issues/4) | AGENT: PR reviewer with structured Markdown output | $150 | 🟢 Open |
-| [#5](../../issues/5) | WORKFLOW: n8n + Claude API — automated weekly dev summary | $200 | 🟢 Open |
+Blocked commands are logged to ~/.claude/hooks/blocked.log.
 
----
+Each log entry contains timestamp, command, project path, and reason.
 
-## Rules
+## Installation
 
-- Tasks must be related to Claude Code or AI tooling
-- Every issue must have clear acceptance criteria before a bounty is activated
-- Payment is handled by [Opire](https://opire.dev) (Stripe)
-- Quality over speed — a solid PR beats a fast one
+Run ./install.sh from this directory, then add the configuration from settings.example.json to your Claude Code settings.
 
----
+## Testing
 
-## Community
+Run: python3 test_hook.py
 
-- 🐦 X: [@ClaudeBounty](https://x.com/ClaudeBounty)
-- 📧 Contact: claudebounty@gmail.com
+Expected: PASS: 15 tests
 
----
+## Safety
 
-*Started by the Claude builder community · March 2026 · MIT License*
+The hook analyzes incoming Bash tool calls and returns a deny decision for matching destructive patterns. It does not execute the incoming command.
+
+This project does not claim the bounty, create a PR, modify GitHub, or submit anything automatically.
